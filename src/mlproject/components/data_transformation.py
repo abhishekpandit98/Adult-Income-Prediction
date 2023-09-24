@@ -30,20 +30,23 @@ class DataTransformation:
 
             num_pipeline = Pipeline(steps=[
                 ("imputer", SimpleImputer(strategy='median')),
-                ("scaler", StandardScaler())])
+                ("scaler", StandardScaler())
+                
+            ])
 
             cat_pipeline = Pipeline(steps=[
                 ("imputer", SimpleImputer(strategy='most_frequent')),
-                ("ohe", OneHotEncoder()),
+                ("one_hot_encoder", OneHotEncoder()),
                 ("scaler", StandardScaler(with_mean=False))])
 
             logging.info(f"Categorical columns: {categorical_features}")
             logging.info(f"Numeric columns: {numeric_features}")
 
-            preprocessor = ColumnTransformer([
-                ("numerical_pipeline", num_pipeline, numeric_features),
-                ("categorical_pipeline", cat_pipeline, categorical_features)
-            ]
+            preprocessor = ColumnTransformer(
+                [
+                      ("numerical_pipeline", num_pipeline, numeric_features),
+                     ("categorical_pipeline", cat_pipeline, categorical_features)
+                 ]
             )
 
             return preprocessor
@@ -59,12 +62,12 @@ class DataTransformation:
             preprocessing_obj = self.get_data_transformer_object()
             target_column_name = 'salary'
 
-            ## divide the train dataset to independent and dependent feature
+ ## divide the train dataset to independent and dependent feature
             input_features_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
 
 
-            ## divide the test dataset to independent and dependent feature
+ ## divide the test dataset to independent and dependent feature
 
 
             input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
@@ -75,29 +78,35 @@ class DataTransformation:
             input_feature_train_arr=preprocessing_obj.fit_transform(input_features_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
 
-                        # Check the shapes again
-            print("Shapes after reshaping:")
-            print("input_features_train_arr shape:", input_feature_train_arr.shape)
-            print("input_features_test_arr shape:", input_feature_test_arr.shape)
-            print("target_features_train_arr shape:", np.array(target_feature_train_df).shape)
-            print("target_features_test_arr shape:", np.array(target_feature_test_df).shape)
+# Convert the sparse matrix to a dense numpy array
+            input_feature_train_arr = input_feature_train_arr.toarray()
+            input_feature_test_arr = input_feature_test_arr.toarray()
 
-            
-            train_arr = np.hstack((input_feature_train_arr, target_feature_train_df))
-            test_arr =  np.hstack((input_feature_test_arr, target_feature_test_df))
+            train_arr = np.c_[
+             input_feature_train_arr, np.array(target_feature_train_df)
+                ]
+            test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
-            logging.info(f"Saved preprocessing object")
 
-            logging.info(f"Saved preprocessing object")
+            logging.info(f"starting function for saving preprocessing object")
 
             save_object(
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
                 obj=preprocessing_obj
             )
+
+            logging.info(f"Saved preprocessing object")
+
+            return (
+
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_obj_file_path
+            )
+        
             
 
-            return(train_arr,
-            test_arr,
-            self.data_transformation_config.preprocessor_obj_file_path)
+
+            logging.info(f"returned traina nd test arr data")
         except Exception as e:
             raise CustomException(e, sys)
