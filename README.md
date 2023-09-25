@@ -115,10 +115,11 @@ Input the required data, such as age, education, and hours worked per week.
 
 Click the "Predict" button to see the predicted income.
 
-8. Folder Structure
-data_ingestion.py: Handles data loading and preprocessing.
-data_transformation.py: Manages data transformation and preprocessing.
-model_trainer.py: Handles model training and evaluation.
-prediction_pipeline.py: Contains the PredictionPipeline class for making predictions.
-app.py: Main application script for UI and integration.
-artifacts/: Folder for storing model and preprocessor objects.
+## 8. Folder Structure
+
+- `data_ingestion.py`: Handles data loading and preprocessing.
+- `data_transformation.py`: Manages data transformation and preprocessing.
+- `model_trainer.py`: Handles model training and evaluation.
+- `prediction_pipeline.py`: Contains the PredictionPipeline class for making predictions.
+- `app.py`: Main application script for UI and integration.
+- `artifacts/`: Folder for storing model and preprocessor objects.
