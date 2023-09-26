@@ -25,7 +25,7 @@ if __name__ == "__main__":
         # model_trainer=ModelTrainer()
         # print(model_trainer.initiate_model_trainer(train_arr,test_arr))
 
-        # Initialize Streamlit UI
+    # Initialize Streamlit UI
         logging.info("The Streamlit execution has started")
 
         st.title("Adult Income Prediction App")
