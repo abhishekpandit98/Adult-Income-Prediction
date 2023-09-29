@@ -2,7 +2,7 @@
 Adult Census Income Prediction ineuron internship project
 <br>
 
-Application URL Links : [InsurancePremiumPredictor](https://abhishekpandit98-adult-income-prediction-app-uy6n8o.streamlit.app/)
+Application URL Links : [Adult income Predication APP ](https://abhishekpandit98-adult-income-prediction-app-uy6n8o.streamlit.app/)
 
 <br>
 
