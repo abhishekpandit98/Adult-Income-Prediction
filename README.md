@@ -1,6 +1,10 @@
-# ADULT_CENSUS_INCOME# Adult_Census_Income_Prediction
-Adult Census Income Prediction ineuron internship project
 
+Adult Census Income Prediction ineuron internship project
+<br>
+
+Application URL Links : [InsurancePremiumPredictor](https://abhishekpandit98-adult-income-prediction-app-uy6n8o.streamlit.app/)
+
+<br>
 
 # Machine Learning Income Prediction App
 
